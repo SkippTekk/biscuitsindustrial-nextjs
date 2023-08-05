@@ -9,8 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/sequelize-adapter": "^1.0.1",
+    "@prisma/client": "^5.1.0",
+    "bcrypt": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "mariadb": "^3.2.0",
+    "mysql2": "^3.5.2",
     "next": "13.4.12",
+    "next-auth": "^4.22.3",
+    "nodemailer": "^6.9.4",
+    "passport": "^0.6.0",
+    "passport-eveonline": "^0.1.1",
+    "pg-hstore": "^2.3.4",
+    "prisma": "^5.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-password-checklist": "^1.4.3",
+    "sequelize": "^6.32.1",
+    "swr": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.4.6",
+    "@types/react": "18.2.18",
+    "typescript": "5.1.6"
   }
 }
