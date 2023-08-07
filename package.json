@@ -21,16 +21,17 @@
     "passport": "^0.6.0",
     "passport-eveonline": "^0.1.1",
     "pg-hstore": "^2.3.4",
-    "prisma": "^5.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-password-checklist": "^1.4.3",
+    "react-toastify": "^9.1.3",
     "sequelize": "^6.32.1",
     "swr": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "20.4.6",
     "@types/react": "18.2.18",
+    "prisma": "^5.1.1",
     "typescript": "5.1.6"
   }
 }
