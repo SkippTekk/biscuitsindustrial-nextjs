@@ -13,6 +13,7 @@
 .text {
   font-size: 72px;
   text-align: center;
+  color: rgb(65, 245, 65);
 }
 
 .desc {

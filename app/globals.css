@@ -1,3 +1,5 @@
+@import url("react-toastify/dist/ReactToastify.css");
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -15,6 +17,11 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+a:hover {
+  color: rgb(65, 245, 65);
+  transition: 0.4s;
 }
 
 .container {
