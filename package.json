@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dbupdate": "cd ./prisma && prisma db push --schema=./biscuits.prisma && prisma generate --schema=./biscuits.prisma && prisma db push --schema=./evedump.prisma && prisma generate --schema=./evedump.prisma"
   },
   "dependencies": {
     "@auth/sequelize-adapter": "^1.0.1",
