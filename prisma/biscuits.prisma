@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
+datasource biscuits {
   provider = "mysql"
   url      = env("BISCUITS_DATABASE_URL")
 }
