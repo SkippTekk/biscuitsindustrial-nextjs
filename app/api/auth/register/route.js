@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/biscuits/index";
 import crypto from "node:crypto";
-import { PrismaClient } from "@prisma/client";
-import sendEmail from "../../../../components/mail/mailing";
+import sendEmail from "@mailing/mailing";
 import bcrypt from "bcrypt";
 
 export const POST = async (request) => {
-  const prisma = new PrismaClient("biscuits");
+  const prisma = new PrismaClient();
 
   const { username, email, password } = await request.json();
 
