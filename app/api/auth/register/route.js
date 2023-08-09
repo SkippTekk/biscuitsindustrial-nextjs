@@ -5,7 +5,7 @@ import sendEmail from "@mailing/mailing";
 import bcrypt from "bcrypt";
 
 export const POST = async (request) => {
-  const prisma = new PrismaClient();
+  const prisma = new PrismaClient("biscuits");
 
   const { username, email, password } = await request.json();
 
