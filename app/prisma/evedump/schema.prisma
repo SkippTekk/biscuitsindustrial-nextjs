@@ -3,7 +3,7 @@ generator client {
   output = "/app/prisma/evedump"
 }
 
-datasource db {
+datasource evedump {
   provider = "mysql"
   url      = env("EVEDUMP_DATABASE_URL")
 }
