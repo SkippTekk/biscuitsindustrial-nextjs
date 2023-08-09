@@ -42,8 +42,10 @@ Ensure you have your development branch selected
 
 `git checkout <branchname>`
 
-Then rebase
+Then fetch and merge
 
+`git fetch --all`
+`git pull --all`
 `git rebase nextjs`
 
 ---
@@ -82,9 +84,4 @@ Installation
 `npm i -g prisma`
 
 Push Schema to DB
-`prisma db push --schema=./prisma/biscuits.prisma`
-`prisma db push --schema=./prisma/evedump.prisma`
-
-Generate
-`prisma db generate --schema=./prisma/biscuits.prisma`
-`prisma db generate --schema=./prisma/evedump.prisma`
+`npm run dbupdate`

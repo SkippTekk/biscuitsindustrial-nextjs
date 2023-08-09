@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "/app/prisma/biscuits"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("BISCUITS_DATABASE_URL")
+}
+
+model Users {
+  id           Int       @id @unique @default(autoincrement())
+  username     String?   @unique
+  email        String?   
+  verified     Boolean?  
+  hashPassword String?   
+  salt         String?   
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @default(now())
+  Accounts     Accounts?
+
+  @@index([id, username, email])
+}
+
+model Accounts {
+  id            Int       @id @unique @default(autoincrement())
+  userID        Int       @unique
+  characterID   String?   
+  characterName String?   
+  accessToken   String?   
+  refreshToken  String?   
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @default(now())
+  user          Users     @relation(fields: [userID], references: [id])
+
+  @@index([id, userID, characterID])
+}
