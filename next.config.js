@@ -5,11 +5,6 @@ const nextConfig = {
   images: {
     domains: ["images.evetech.net", "patreon.com"],
   },
-};
-
-module.exports = nextConfig;
-
-module.exports = {
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];
@@ -18,3 +13,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = nextConfig;
