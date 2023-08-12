@@ -2,22 +2,18 @@
 import React from "react";
 import style from "./page.module.css";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
-import { signIn } from "next-auth/react";
+import { ToastContainer } from "react-toastify";
+import { successToast } from "@components/biscuit-toasts/biscuit-toasts";
 
 const ResetPassword = () => {
-  const handlePasswordReset = (event) => {
+  const handlePasswordReset = (
+    event: React.MouseEvent<HTMLFormElement>
+  ): void => {
     event.preventDefault();
-    toast.success("Reset password sent via Email", {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+
+    // Reset Password Logic goes here... somewhere
+
+    successToast("Reset password sent via Email");
   };
 
   return (
