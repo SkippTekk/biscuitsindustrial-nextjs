@@ -3,6 +3,8 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
+const prisma = new PrismaClient();
+
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -17,31 +19,29 @@ export const options: NextAuthOptions = {
       },
       //@ts-ignore
       async authorize(credentials, req) {
-        const { username, password } = credentials!;
-        const prisma = new PrismaClient();
+        const { username, password }: UserCredentials = credentials!;
 
-        const user = await prisma.users.findFirst({
-          where: {
-            OR: [{ username: username }],
-          },
-        });
-        if (!user) return null;
-        if (await bcrypt.compare(password, user.hashPassword)) {
-          return {
-            id: user.id,
-            email: user.email,
-            username: user.username,
-          };
+        try {
+          const user = await prisma.users.findUnique({
+            select: { username: username },
+          });
+          if (!user) return null;
+
+          if (await bcrypt.compare(password, user.hashPassword)) {
+            return {
+              id: user.id,
+              email: user.email,
+              username: user.username,
+            };
+          }
+        } catch (err) {
+          return;
         }
-        return null;
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, account, profile, isNewUser }: any) => {
-      if (user) {
-        token.user = user;
-      }
+    jwt: async ({ token, account }: any) => {
       if (account) {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
@@ -49,7 +49,8 @@ export const options: NextAuthOptions = {
       return token;
     },
     session: ({ session, token }: any) => {
-      token.accessToken;
+      session.accessToken = token.accessToken;
+
       return {
         ...session,
         user: {
