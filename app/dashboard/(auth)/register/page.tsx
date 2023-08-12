@@ -1,101 +1,134 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import style from "./page.module.css";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import PasswordChecklist from "react-password-checklist";
+import { ToastContainer } from "react-toastify";
+import {
+  successToast,
+  errorToast,
+} from "@components/biscuit-toasts/biscuit-toasts";
 
 const Login = () => {
-  const [err, setErr] = useState(false);
-  const router = useRouter();
-  const [password, setPassword] = useState("");
+  const username = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const [getPassword, setPassword] = useState<string>("");
+  const [getAccountCreated, setAccountCreated] = useState<boolean>(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const username = event.target[0].value;
-    const email = event.target[1].value;
-    const password = event.target[2].value;
+    const userCreds: UserCredentials = {
+      username: username.current?.value,
+      email: email.current?.value,
+      password: getPassword,
+    };
 
     try {
-      const res = await fetch("/api/auth/register/", {
+      await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
-      });
-      if (res.status === 201) {
-        router.push("/dashboard/login");
-      } else {
-        // TODO:
-        // Want to display a pretty toast notification to the user indicating error,
-        // alerts are annoying and not good for user experience/interaction
-        alert("Sorry, Username and/or email is already used!");
-      }
+        body: JSON.stringify(userCreds),
+        credentials: "include",
+      })
+        .then(() => {
+          successToast(`Please check your email for verification link.`);
+          setAccountCreated(true);
+        })
+        .catch((err) => {
+          if (err.status === 502) {
+            errorToast("Account is already registered!");
+          }
+          if (err.status === 500) {
+            errorToast("Sorry! Server is unavailable. Please try again later.");
+          }
+        });
     } catch (err) {
-      // TODO:
-      // Want to display a pretty toast notification to the user indicating error,
-      // instead of logging the error to the console
-      console.log(err);
-      setErr(true);
+      errorToast("Unable to communicate with server.");
     }
   };
 
-  return (
-    <div className={style.container}>
-      <h1>Sign up!</h1>
-      <form className={style.form} onSubmit={handleSubmit}>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="username"
-          className={style.input}
-          minLength="4"
-          maxLength="20"
-          required
-        />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Email"
-          className={style.input}
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password"
-          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{7,19}$"
-          className={style.input}
-          required
-          title="Minimum 8 characters, at least 1 upper case English letter, 1 lower case English letter, 1 number and 1 special character "
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <PasswordChecklist
-          rules={["minLength", "specialChar", "number", "capital", "maxLength"]}
-          minLength={7}
-          maxLength={31}
-          value={password}
-          messages={{
-            minLength: "More then 8 characters",
-            specialChar: "You have at least 1 special character #?!@$ %^&*-",
-            number: "You have at least 1 number",
-            capital: "Capital letter was used.",
-            maxLength: "Under 32 characters",
-          }}
-        />
+  const handlePassword = (arg: string): void => {
+    setPassword(arg);
+  };
 
-        <button className={style.button}>Register</button>
-      </form>
-      {err && "Sorry, Username and/or email is already taken!"}
-      <Link href="/dashboard/login">Got an account?</Link>
-    </div>
+  return (
+    <>
+      {!getAccountCreated && (
+        <div className={style.container}>
+          <h1>Sign up!</h1>
+          <form className={style.form} onSubmit={handleSubmit}>
+            <input
+              ref={username}
+              type="text"
+              id="username"
+              name="username"
+              placeholder="username"
+              className={style.input}
+              minLength={4}
+              maxLength={20}
+              required
+            />
+            <input
+              ref={email}
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              className={style.input}
+              required
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{7,19}"
+              className={style.input}
+              onChange={(e) => handlePassword(e.target.value)}
+              required
+            />
+            <PasswordChecklist
+              rules={[
+                "minLength",
+                "specialChar",
+                "number",
+                "capital",
+                "maxLength",
+              ]}
+              minLength={7}
+              maxLength={31}
+              value={getPassword}
+              messages={{
+                minLength: "Minimum of 8 characters in length",
+                specialChar: "At least 1 special character #?!@$ %^&*-",
+                number: "At least 1 numeral",
+                capital: "At least 1 capital letter",
+                maxLength: "Under 32 characters in length",
+              }}
+            />
+            <button className={style.btn}>Register</button>
+          </form>
+          <Link href="/dashboard/login">Got an account?</Link>
+        </div>
+      )}
+      {getAccountCreated && (
+        <div className={style.container}>
+          <p className={style.created__text}>
+            Account has been <u>created</u>!
+          </p>
+          <br />
+          <br />
+          <p>Please check your email for a verification link.</p>
+          <br />
+          <br />
+          <Link href="/dashboard/login">
+            <button className={style.btn}>Go to Login</button>
+          </Link>
+        </div>
+      )}
+      <ToastContainer />
+    </>
   );
 };
 

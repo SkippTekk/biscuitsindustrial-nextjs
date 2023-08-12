@@ -6,13 +6,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 700px;
   transform: translate(-50%, -50%);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  width: 400px;
   padding: 20px;
   color: antiquewhite;
 }
@@ -27,9 +27,17 @@
   margin: 10px 0;
 }
 
-.form button {
+.btn {
   margin-top: 10px;
   height: 30px;
   background-color: rgb(65, 245, 65);
   border-radius: 0.4em;
+  font-weight: bold;
+}
+
+.created__text {
+  color: rgb(65, 245, 65);
+  font-weight: bold;
+  font-size: 35px;
+  text-align: center;
 }

@@ -23,8 +23,8 @@
     "strictNullChecks": true,
     "paths": {
       "@components/*": ["app/components/*"],
-      "@prisma/biscuits/*": ["app/prisma/biscuits/*"],
-      "@prisma/evedump/*": ["app/prisma/evedump/*"],
+      "@prisma/biscuits/*": ["prisma/biscuits/*"],
+      "@prisma/evedump/*": ["prisma/evedump/*"],
       "@mailing/*": ["app/mail/*"]
     }
   },
