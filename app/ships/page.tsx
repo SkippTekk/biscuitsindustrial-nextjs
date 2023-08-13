@@ -1,22 +1,82 @@
 "use client";
 import React from "react";
-import Navbar from "./navbar";
-import Build from "./build";
+import Link from "next/link";
+import Image from "next/image";
 import style from "./page.module.css";
 import useSWR from "swr";
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { kMaxLength } from "buffer";
 
 const Ships = () => {
-  const { data: build, error, isLoading } = useSWR("/ships/orca", fetcher);
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const {
+    data: navbar,
+    error: nError,
+    isLoading: nLoading,
+  } = useSWR("/ships/faction", fetcher);
+  const {
+    data: build,
+    error: bError,
+    isLoading: bLoading,
+  } = useSWR("/ships/orca", fetcher);
+  const {
+    data: info,
+    error: iError,
+    isLoading: iLoading,
+  } = useSWR("/ships/orca", fetcher);
 
-  if (error) return <div>Failed to load....</div>;
-  if (isLoading) return <div>Loading data....</div>;
+  if (bError) return <div>Failed to load....</div>;
+  if (bLoading) return <div>Loading Build Data....</div>;
+  if (nError) return <div>Failed to load....</div>;
+  if (nLoading) return <div>Loading Navbar Data....</div>;
+  if (iError) return <div>Failed to load....</div>;
+  if (iLoading) return <div>Loading Information data</div>;
   return (
     <div>
-      <Navbar />
+      {navbar.map(({ factionName }) => {
+        return (
+          <Link href="/ships/" className={style.navbar}>
+            {factionName}
+          </Link>
+        );
+      })}
       <div className={style.container}>
-        <div className={style.details}>Ship Details</div>
-        <Build />
+        <div className={style.details}>
+          Ship Details
+          <Image
+            className={style.img}
+            src={`https://images.evetech.net/types/28606/render`}
+            alt="Ship Image goes Here, Mail SkippTekk or tweet @XGKIPPY for a fix"
+            height={200}
+            width={200}
+          />
+        </div>
+        <div className={style.build}>
+          <table>
+            <thead>
+              <th>Components</th>
+              <th>Quantity</th>
+            </thead>
+            <tbody>
+              {build.map(({ typeName, materialTypeID, quantity }) => {
+                return (
+                  <tr>
+                    <td className={style.td}>
+                      <Image
+                        key={1}
+                        src={`https://images.evetech.net/types/${materialTypeID}/icon`}
+                        width={35}
+                        height={35}
+                        alt={typeName}
+                      />
+                      {typeName}
+                    </td>
+                    <td className={style.td}>{quantity}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         <div className={style.right}> Ship Information</div>
       </div>
     </div>

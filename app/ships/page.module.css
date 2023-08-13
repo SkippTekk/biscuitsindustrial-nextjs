@@ -1,6 +1,10 @@
 .container {
     column-count: 3;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
     column-gap: 24px;
+    -webkit-column-gap: 24px;
+    -moz-column-gap: 24px;
 }
 
 .dropdown {
