@@ -31,6 +31,7 @@ const Ships = () => {
   if (iError) return <div>Failed to load....</div>;
   if (iLoading) return <div>Loading Information data</div>;
   return (
+    // left area
     <div>
       {navbar.map(({ factionName }) => {
         return (
@@ -50,6 +51,7 @@ const Ships = () => {
             width={200}
           />
         </div>
+        {/* Middle area */}
         <div className={style.build}>
           <table>
             <thead>
@@ -77,6 +79,7 @@ const Ships = () => {
             </tbody>
           </table>
         </div>
+        {/* right area */}
         <div className={style.right}> Ship Information</div>
       </div>
     </div>
