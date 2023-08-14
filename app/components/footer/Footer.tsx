@@ -3,6 +3,7 @@ import React from "react";
 import style from "./footer.module.css";
 import Image from "next/image";
 import useSWR from "swr";
+import Link from "next/link";
 const Footer = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
@@ -19,7 +20,7 @@ const Footer = () => {
       <div>
         Biscuits Industrial. Proper Footer will be created at some point.
       </div>
-      Players Playing: {data.players} - Server Version: {data.server_version}
+      [{parseFloat(data.players).toLocaleString("en")} Players]
       <div className={style.img}>
         <Image
           src="/BiscuityBotIcon.png"
@@ -27,12 +28,14 @@ const Footer = () => {
           height={20}
           alt="Biscuits Industrial"
         />
-        <Image
-          src="/discord-mark-blue.svg"
-          width={20}
-          height={20}
-          alt="Discord Link"
-        />
+        <Link href="https://discord.gg/kksqmuu" target="__blank">
+          <Image
+            src="/discord-mark-blue.svg"
+            width={20}
+            height={20}
+            alt="Discord Link"
+          />
+        </Link>
       </div>
     </div>
   );

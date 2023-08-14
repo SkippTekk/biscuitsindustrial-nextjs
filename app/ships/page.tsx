@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import style from "./page.module.css";
 import useSWR from "swr";
-import { kMaxLength } from "buffer";
 
 const Ships = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
