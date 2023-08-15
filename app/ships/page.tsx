@@ -65,17 +65,17 @@ const Ships = () => {
         {/* Middle area */}
         <div className={style.build}>
           <table>
-            <tr>
-              <th>Components</th>
-              <th>Quantity</th>
-            </tr>
             <tbody>
+              <tr>
+                <th>Components</th>
+                <th>Quantity</th>
+              </tr>
               {build.map(({ typeName, materialTypeID, quantity }) => {
                 return (
                   <tr>
                     <td className={style.td}>
                       <Image
-                        key={1}
+                        key={materialTypeID}
                         src={`https://images.evetech.net/types/${materialTypeID}/icon`}
                         width={35}
                         height={35}
