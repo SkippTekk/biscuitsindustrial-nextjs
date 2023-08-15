@@ -21,7 +21,7 @@ const Ships = () => {
     data: info,
     error: iError,
     isLoading: iLoading,
-  } = useSWR("/ships/orca", fetcher);
+  } = useSWR("ships/info/orca", fetcher);
   // const {
   //   data: insurance,
   //   error: isError,
@@ -46,52 +46,59 @@ const Ships = () => {
     <div>
       {navbar.map(({ factionName }) => {
         return (
-          <Link href="/ships/" className={style.navbar}>
+          <Link href="/ships/" key={factionName} className={style.navbar}>
             {factionName}
           </Link>
         );
       })}
       <div className={style.container}>
         <div className={style.details}>
-          Ship Details
           <Image
+            key={info[0].typeName}
             className={style.img}
-            src={`https://images.evetech.net/types/28606/render`}
+            src={`https://images.evetech.net/types/${info[0].typeID}/render`}
             alt="Ship Image goes Here, Mail SkippTekk or tweet @XGKIPPY for a fix"
             height={200}
             width={200}
           />
+          <p>Mass: {parseFloat(info[0].mass).toLocaleString("en")}</p>
+          <p>Volume: {parseFloat(info[0].volume).toLocaleString("en")}</p>
         </div>
         {/* Middle area */}
         <div className={style.build}>
-          <table>
-            <tbody>
-              <tr>
-                <th>Components</th>
-                <th>Quantity</th>
-              </tr>
-              {build.map(({ typeName, materialTypeID, quantity }) => {
-                return (
-                  <tr>
-                    <td className={style.td}>
-                      <Image
-                        key={materialTypeID}
-                        src={`https://images.evetech.net/types/${materialTypeID}/icon`}
-                        width={35}
-                        height={35}
-                        alt={typeName}
-                      />
-                      {typeName}
-                    </td>
-                    <td className={style.td}>{quantity}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div>
+            Ship Selected: {info[0].typeName} - {info[0].typeID}
+          </div>
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Components</th>
+                  <th>Quantity</th>
+                </tr>
+                {build.map(({ typeName, materialTypeID, quantity }) => {
+                  return (
+                    <tr>
+                      <td className={style.td}>
+                        <Image
+                          key={materialTypeID}
+                          src={`https://images.evetech.net/types/${materialTypeID}/icon`}
+                          width={35}
+                          height={35}
+                          alt={typeName}
+                        />
+                        {typeName}
+                      </td>
+                      <td className={style.td}>{quantity}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
         {/* right area */}
-        <div className={style.right}> Ship Information</div>
+        <div className={style.right}> {info[0].description}</div>
       </div>
     </div>
   );
