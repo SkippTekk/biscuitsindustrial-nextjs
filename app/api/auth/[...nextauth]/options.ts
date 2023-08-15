@@ -3,71 +3,66 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
+const prisma = new PrismaClient();
+
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "Username" },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "Password",
-        },
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
       },
-      //@ts-ignore
       async authorize(credentials, req) {
-        const { username, password } = credentials!;
-        const prisma = new PrismaClient();
+        const username = credentials?.username.toLowerCase();
+        const password = credentials?.password;
 
-        const user = await prisma.users.findFirst({
-          where: {
-            OR: [{ username: username }],
-          },
-        });
-        if (!user) return null;
-        if (await bcrypt.compare(password, user.hashPassword)) {
-          return {
-            id: user.id,
-            email: user.email,
-            username: user.username,
-          };
+        try {
+          const fetchUser = await prisma.users.findFirst({
+            where: { username },
+          });
+
+          const checkPass = await bcrypt.compare(password, fetchUser.password);
+
+          if (fetchUser !== null && checkPass) {
+            return {
+              id: fetchUser.id,
+              username: fetchUser.username,
+              email: fetchUser.email,
+              verified: fetchUser.verified,
+            };
+          } else {
+            return null;
+          }
+        } catch (err) {
+          return;
         }
-        return null;
       },
     }),
   ],
+  jwt: {
+    maxAge: 60 * 60 * 24,
+  },
+  session: {
+    strategy: "jwt",
+    updateAge: 60 * 60 * 24,
+  },
   callbacks: {
-    jwt: async ({ token, user, account, profile, isNewUser }: any) => {
-      if (user) {
-        token.user = user;
-      }
-      if (account) {
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
-      }
-      return token;
-    },
-    session: ({ session, token }: any) => {
-      token.accessToken;
+    session: async ({ session, token }) => {
       return {
         ...session,
         user: {
           ...session.user,
           ...token.user,
-          accessToken: token.accessToken,
-          refreshToken: token.refreshToken,
         },
       };
     },
-  },
-  session: {
-    strategy: "jwt",
-  },
-  jwt: {
-    maxAge: 60 * 60 * 24,
-  },
-  pages: {
-    signIn: "/dashboard/login",
+    jwt: async ({ token, user, account }) => {
+      if (user) {
+        token.user = user;
+      }
+
+      return token;
+    },
   },
 };

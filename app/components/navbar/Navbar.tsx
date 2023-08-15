@@ -54,7 +54,10 @@ const Navbar = () => {
             clearer code organization and easy updates should the signout logic need to be
             changed easily
             */}
-            <button className={style.logout} onClick={signOut}>
+            <button
+              className={style.logout}
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
               Logout
             </button>
           </div>

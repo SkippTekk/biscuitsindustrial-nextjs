@@ -3,8 +3,6 @@ import { PrismaClient } from "@prisma/biscuits/index";
 import sendEmail from "@mailing/mailing";
 import bcrypt from "bcrypt";
 
-const SALT_VAR = process.env.PASSWORD_SALT_HASH;
-
 export async function POST(req: NextRequest) {
   const prisma = new PrismaClient();
   const params = await req.json();
@@ -16,15 +14,13 @@ export async function POST(req: NextRequest) {
 
     if (userExits == null) {
       const userPassword = await bcrypt.hash(params.password, 10);
-      const saltHash = await bcrypt.hash(SALT_VAR, 10);
 
       //@ts-ignore
       const createUser = await prisma.users.create({
         data: {
           username: params.username,
           email: params.email,
-          hashPassword: userPassword,
-          salt: saltHash,
+          password: userPassword,
           verified: false,
         },
       });
@@ -58,5 +54,5 @@ export async function POST(req: NextRequest) {
     return new NextResponse(
       JSON.stringify({ msg: "server/connection", status: 500 })
     );
-  }
+  },
 }
