@@ -5,22 +5,29 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import { errorToast } from "@components/biscuit-toasts/biscuit-toasts";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const userEmail = useRef<HTMLInputElement>(null);
+  const userName = useRef<HTMLInputElement>(null);
   const userPass = useRef<HTMLInputElement>(null);
+  const { push } = useRouter();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      await signIn("credentials", { userEmail, userPass })
-        .then((res) => {
-          console.log("res: ", res);
-        })
-        .catch((err) => {
-          console.log("err: ", err);
-        });
+      await signIn("credentials", {
+        username: userName.current?.value.toLowerCase(),
+        password: userPass.current?.value,
+        redirect: false,
+      }).then((res) => {
+        if (res?.error !== null) {
+          errorToast("Username or password are invalid.");
+        } else {
+          push("/dashboard");
+          return;
+        }
+      });
     } catch (err) {
       console.log(err);
     }
@@ -32,7 +39,7 @@ const Login = () => {
         <h1>Login</h1>
         <form className={style.form} onSubmit={handleSubmit}>
           <input
-            ref={userEmail}
+            ref={userName}
             type="text"
             placeholder="username"
             className={style.input}

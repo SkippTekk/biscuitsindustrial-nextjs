@@ -9,12 +9,11 @@ datasource db {
 }
 
 model Users {
-  id           Int       @id @default(autoincrement())
+  id           String    @id @default(uuid())
   username     String   
   email        String   
   verified     Boolean  
-  hashPassword String   
-  salt         String   
+  password     String   
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @default(now())
   Accounts     Accounts?
@@ -24,8 +23,8 @@ model Users {
 }
 
 model Accounts {
-  id            Int       @id @unique @default(autoincrement())
-  userID        Int       @unique
+  id            String    @id @unique @default(uuid())
+  userID        String       @unique
   characterID   String?   
   characterName String?   
   accessToken   String?   

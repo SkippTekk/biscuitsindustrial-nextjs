@@ -19,8 +19,8 @@ const Login = () => {
     event.preventDefault();
 
     const userCreds: UserCredentials = {
-      username: username.current?.value,
-      email: email.current?.value,
+      username: username.current?.value.toLowerCase(),
+      email: email.current?.value.toLowerCase(),
       password: getPassword,
     };
 
