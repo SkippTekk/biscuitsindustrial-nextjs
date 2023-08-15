@@ -22,6 +22,15 @@ const Ships = () => {
     error: iError,
     isLoading: iLoading,
   } = useSWR("/ships/orca", fetcher);
+  // const {
+  //   data: insurance,
+  //   error: isError,
+  //   isLoading: isLoading,
+  // } = useSWR(
+  //   "https://esi.evetech.net/latest/insurance/prices/?datasource=tranquility&language=en",
+  //   fetcher,
+  //   { refreshInterval: 3600000 }
+  // );
 
   if (bError) return <div>Failed to load....</div>;
   if (bLoading) return <div>Loading Build Data....</div>;
@@ -29,6 +38,9 @@ const Ships = () => {
   if (nLoading) return <div>Loading Navbar Data....</div>;
   if (iError) return <div>Failed to load....</div>;
   if (iLoading) return <div>Loading Information data</div>;
+  // if (isError) return <div>Failed to load....</div>;
+  // if (isLoading) return <div>Loading Information data</div>;
+
   return (
     // left area
     <div>
@@ -53,10 +65,10 @@ const Ships = () => {
         {/* Middle area */}
         <div className={style.build}>
           <table>
-            <thead>
+            <tr>
               <th>Components</th>
               <th>Quantity</th>
-            </thead>
+            </tr>
             <tbody>
               {build.map(({ typeName, materialTypeID, quantity }) => {
                 return (

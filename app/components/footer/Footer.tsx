@@ -9,7 +9,7 @@ const Footer = () => {
   const { data, error, isLoading } = useSWR(
     "https://esi.evetech.net/latest/status/?datasource=tranquility",
     fetcher,
-    { refreshInterval: 60000 }
+    { refreshInterval: 31000 }
   );
   if (error) return <div>Failed to load....</div>;
   if (isLoading) return <div>Loading Build Data....</div>;
