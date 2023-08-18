@@ -6,6 +6,10 @@ export default function Dashboard() {
   const { data: session } = useSession();
 
   return (
-    <div className={styles.container}>Welcome {session?.user.username}</div>
+    <div
+      className={`container h-screen w-screen flex flex-col items-center justify-center`}
+    >
+      Welcome {session?.user.username}
+    </div>
   );
 }

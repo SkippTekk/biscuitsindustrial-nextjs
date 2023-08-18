@@ -1,47 +1,27 @@
 @import url("react-toastify/dist/ReactToastify.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  background-color: #111;
+  color: #bbb;
 }
 
-html,
+/* html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
   background-color: black;
   color: #bbb;
-}
+} */
 
 a {
   text-decoration: none;
   color: inherit;
-}
-
-a:hover {
-  color: rgb(65, 245, 65);
-  transition: 0.4s;
-}
-
-.container {
-  max-width: 1366px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 0 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.light {
-  background-color: #111;
-  color: #bbb;
-}
-
-.dark {
-  background-color: #bbb;
-  color: #111;
 }
 
 .theme {

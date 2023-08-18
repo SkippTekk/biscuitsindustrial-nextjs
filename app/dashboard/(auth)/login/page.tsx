@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 const Login = () => {
   const userName = useRef<HTMLInputElement>(null);
   const userPass = useRef<HTMLInputElement>(null);
+  const inputStyle = `text-white bg-neutral-900 h-8 border-2 border-green-400/0 border-b-green-400 text-center mt-5 mb-5 focus:outline-none`;
   const { push } = useRouter();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
@@ -35,30 +36,41 @@ const Login = () => {
 
   return (
     <>
-      <div className={style.container}>
-        <h1>Login</h1>
-        <form className={style.form} onSubmit={handleSubmit}>
+      <div
+        className={`container h-screen w-screen flex flex-col items-center justify-center`}
+      >
+        <h1 className={`text-green-400 text-4xl mb-5 font-bold`}>Sign in!</h1>
+        <form className={`flex flex-col w-1/4`} onSubmit={handleSubmit}>
+          <label htmlFor="username">Username</label>
           <input
             ref={userName}
             type="text"
-            placeholder="username"
-            className={style.input}
+            className={inputStyle}
+            id="username"
             required
           />
+          <label htmlFor="password">Password</label>
           <input
             ref={userPass}
             type="password"
-            placeholder="password"
-            className={style.input}
+            className={inputStyle}
+            id="password"
             required
           />
-          <button className={style.button}>Login</button>
+          <button
+            className={`bg-green-400 mt-5 h-10 text-black text-2xl font-bold mb-5 rounded`}
+          >
+            Login
+          </button>
         </form>
-        <Link className={style.text__link} href="/dashboard/register">
+        <Link className={`hover:text-green-400`} href="/dashboard/register">
           Need an account?
         </Link>
         <br />
-        <Link className={style.text__link} href="/dashboard/resetpassword">
+        <Link
+          className={`hover:text-green-400`}
+          href="/dashboard/resetpassword"
+        >
           Forgot your password?
         </Link>
       </div>
