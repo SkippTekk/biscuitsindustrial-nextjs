@@ -14,6 +14,7 @@ const Login = () => {
   const email = useRef<HTMLInputElement>(null);
   const [getPassword, setPassword] = useState<string>("");
   const [getAccountCreated, setAccountCreated] = useState<boolean>(false);
+  const inputStyle = `text-white bg-neutral-900 h-8 border-2 border-green-400/0 border-b-green-400 text-center mt-5 mb-5 focus:outline-none`;
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,36 +56,38 @@ const Login = () => {
   return (
     <>
       {!getAccountCreated && (
-        <div className={style.container}>
-          <h1>Sign up!</h1>
-          <form className={style.form} onSubmit={handleSubmit}>
+        <div
+          className={`container h-screen w-screen flex flex-col items-center justify-center`}
+        >
+          <h1 className={`text-green-400 text-4xl mb-5 font-bold`}>Sign up!</h1>
+          <form className={`flex flex-col w-1/4`} onSubmit={handleSubmit}>
+            <label htmlFor="username">Username</label>
             <input
               ref={username}
               type="text"
               id="username"
               name="username"
-              placeholder="username"
-              className={style.input}
+              className={inputStyle}
               minLength={4}
               maxLength={20}
               required
             />
+            <label htmlFor="Email">Email</label>
             <input
               ref={email}
               type="email"
               id="email"
               name="email"
-              placeholder="Email"
-              className={style.input}
+              className={inputStyle}
               required
             />
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="Password"
               pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{7,19}"
-              className={style.input}
+              className={inputStyle}
               onChange={(e) => handlePassword(e.target.value)}
               required
             />
@@ -107,23 +110,37 @@ const Login = () => {
                 maxLength: "Under 32 characters in length",
               }}
             />
-            <button className={style.btn}>Register</button>
+            <button
+              className={`bg-green-400 mt-5 h-10 text-black text-2xl font-bold mb-5 rounded`}
+            >
+              Register
+            </button>
           </form>
-          <Link href="/dashboard/login">Got an account?</Link>
+          <Link href="/dashboard/login" className={`hover:text-green-400`}>
+            Got an account?
+          </Link>
         </div>
       )}
       {getAccountCreated && (
-        <div className={style.container}>
-          <p className={style.created__text}>
+        <div
+          className={`container h-screen w-screen flex flex-col items-center justify-center`}
+        >
+          <p className={`font-bold text-green-400 text-5xl`}>
             Account has been <u>created</u>!
           </p>
           <br />
           <br />
-          <p>Please check your email for a verification link.</p>
+          <span className={`text-xl`}>
+            Please check your email for a verification link.
+          </span>
           <br />
           <br />
           <Link href="/dashboard/login">
-            <button className={style.btn}>Go to Login</button>
+            <button
+              className={`bg-green-400 h-auto p-3 pr-5 pl-5 text-black text-2xl font-bold rounded`}
+            >
+              Login
+            </button>
           </Link>
         </div>
       )}
