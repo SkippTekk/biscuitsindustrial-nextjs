@@ -17,6 +17,11 @@ const links: Pages[] = [
     title: "About",
     url: "/about",
   },
+  {
+    id: 3,
+    title: "Ships",
+    url: "/ships",
+  },
 ];
 
 const Navbar = () => {
@@ -55,7 +60,7 @@ const Navbar = () => {
             </Link>
             <Link
               target="_blank"
-              href={`https://login.eveonline.com/v2/oauth/authorize/?response_type=code&redirect_uri=http://localhost:3000/api/auth/eveonline/callback&client_id=${process.env.EVEONLINE_CLIENT_ID}&scope=publicData esi-skills.read_skills.v1 esi-contracts.read_character_contracts.v1&state=${process.env.STATE}`}
+              href={`https://login.eveonline.com/v2/oauth/authorize/?response_type=code&redirect_uri=http://localhost:3000/api/auth/eveonline/callback&client_id=788e7bb100fb40bcab58c81c5cdece42&scope=publicData esi-skills.read_skills.v1 esi-contracts.read_character_contracts.v1&state=bIsCuItS`}
               title="Connect your Eve Account"
               className={`hover:text-green-400`}
             >

@@ -54,5 +54,5 @@ export async function POST(req: NextRequest) {
     return new NextResponse(
       JSON.stringify({ msg: "server/connection", status: 500 })
     );
-  },
+  }
 }
