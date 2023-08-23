@@ -3,9 +3,7 @@ import style from "./page.module.css";
 
 export default function Home() {
   return (
-    <div
-      className={`container h-screen w-screen flex items-center justify-center`}
-    >
+    <div className={`container h-auto w-auto flex items-center justify-center`}>
       <div className={`flex flex-col w-1/2 m-20`}>
         <h1
           className={`text-green-500 font-bold text-center ${style.biscuits__text}`}

@@ -47,7 +47,7 @@ const Ships = () => {
       <div>
         {navbar.map(({ factionName }) => {
           return (
-            <Link href="/ships/" key={factionName} className={`border 2px`}>
+            <Link href="/ships/" key={factionName} className={`gap-3`}>
               {factionName}
             </Link>
           );
@@ -74,6 +74,50 @@ const Ships = () => {
         <div className={`border 2px text-center`}>
           <div>
             Ship Selected: {info[0].typeName} - TypeID: {info[0].typeID}
+          </div>
+          <div className={`text-center`}>
+            <fieldset>
+              <legend>What's your BPO ME</legend>
+              <select name="bpo" id="bpo">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <legend>How many ships are being built</legend>
+              <legend>Highsec - Lowsec - Nullsec/WormHole</legend>
+              <select name="">
+                <option value="hs">Highsec</option>
+                <option value="ls">Lowsec</option>
+                <option value="ns">Highsec</option>
+              </select>
+              <legend>What's the citadel</legend>
+              <select>
+                <option value="Athanor">Athanor</option>
+                <option value="Tatara">Tatara</option>
+                <option value="Raitaru">Raitaru</option>
+                <option value="Azbel">Azbel</option>
+                <option value="Sotiyo">Sotiyo</option>
+                <option value="Astrahus">Astrahus</option>
+                <option value="Fortizar">Fortizar</option>
+                <option value="Keepstar">Keepstar</option>
+              </select>
+              <legend>Citadels Rig</legend>
+              <legend>Ore Bonus Varient</legend>
+              <select>
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="10">10%</option>
+                <option value="15">15%</option>
+              </select>
+            </fieldset>
           </div>
           <div className={`grid justify-items-stretch`}>
             <table className={`border-collapse border`}>

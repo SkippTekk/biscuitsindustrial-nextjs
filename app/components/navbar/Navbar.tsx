@@ -36,7 +36,9 @@ const Navbar = () => {
             src={image}
             alt="Biscuity Bot Icon"
           />
-          <span className={`text-xl`}>Biscuits Industrial</span>
+          <span className={`text-green-500 font-bold text-xl`}>
+            Biscuits Industrial
+          </span>
         </Link>
       </div>
       <div className={`w-90 flex space-x-4`}>
