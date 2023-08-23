@@ -44,46 +44,50 @@ const Ships = () => {
   return (
     // left area
     <div>
-      {navbar.map(({ factionName }) => {
-        return (
-          <Link
-            href="/ships/"
-            key={factionName}
-            className={`border-[#ff6550] border 2px`}
-          >
-            {factionName}
-          </Link>
-        );
-      })}
-      <div className={`items-center gap-100px columns-3 h`}>
-        <div className={`border-[#ff6550] border 2px`}>
+      <div>
+        {navbar.map(({ factionName }) => {
+          return (
+            <Link href="/ships/" key={factionName} className={`border 2px`}>
+              {factionName}
+            </Link>
+          );
+        })}
+      </div>
+      <div className={`grid grid-cols-3 gap-2`}>
+        <div className={`border 2px`}>
           <Image
             key={info[0].typeName}
-            className={style.img}
+            className={`w-1/2 h-auto`}
             src={`https://images.evetech.net/types/${info[0].typeID}/render`}
             alt="Ship Image goes Here, Mail SkippTekk or tweet @XGKIPPY for a fix"
             height={200}
             width={200}
           />
-          <p>Mass: {parseFloat(info[0].mass).toLocaleString("en")}</p>
+          Ship Values of the ship.
+          <p>
+            Ship Capacitor: {parseFloat(info[0].capacity).toLocaleString("en")}
+          </p>
           <p>Volume: {parseFloat(info[0].volume).toLocaleString("en")}</p>
+          <p>Mass: {parseFloat(info[0].mass).toLocaleString("en")}</p>
         </div>
         {/* Middle area */}
-        <div className={`border-[#ff6550] border 2px `}>
+        <div className={`border 2px text-center`}>
           <div>
-            Ship Selected: {info[0].typeName} - {info[0].typeID}
+            Ship Selected: {info[0].typeName} - TypeID: {info[0].typeID}
           </div>
-          <div>
-            <table>
-              <tbody>
+          <div className={`grid justify-items-stretch`}>
+            <table className={`border-collapse border`}>
+              <thead>
                 <tr>
-                  <th>Components</th>
-                  <th>Quantity</th>
+                  <th className={`border border-slate-600`}>Components</th>
+                  <th className={`border border-slate-600`}>Quantity</th>
                 </tr>
+              </thead>
+              <tbody>
                 {build.map(({ typeName, materialTypeID, quantity }) => {
                   return (
                     <tr>
-                      <td className={style.td}>
+                      <td className={`border border-slate-700`}>
                         <Image
                           key={materialTypeID}
                           src={`https://images.evetech.net/types/${materialTypeID}/icon`}
@@ -93,7 +97,7 @@ const Ships = () => {
                         />
                         {typeName}
                       </td>
-                      <td className={style.td}>{quantity}</td>
+                      <td className={`border border-slate-600`}>{quantity}</td>
                     </tr>
                   );
                 })}
@@ -102,10 +106,7 @@ const Ships = () => {
           </div>
         </div>
         {/* right area */}
-        <div className={`border-[#ff6550] border 2px`}>
-          {" "}
-          {info[0].description}
-        </div>
+        <div className={`border 2px`}>Build instructions?</div>
       </div>
     </div>
   );
