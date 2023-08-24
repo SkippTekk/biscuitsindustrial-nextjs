@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
-import style from "./page.module.css";
-import Link from "next/link";
 import { ToastContainer } from "react-toastify";
 import { successToast } from "@components/biscuit-toasts/biscuit-toasts";
+import { InputFormField } from "@components/Ui/InputFormField/InputFormField";
+import { FormButton } from "@components/Ui/FormButton/FormButton";
+import { TextUrlLink } from "@components/Ui/TextUrlLink/TextUrlLink";
 
 const ResetPassword = () => {
   const inputStyle = `text-white bg-neutral-900 h-8 border-2 border-green-400/0 border-b-green-400 text-center mt-5 mb-5 focus:outline-none`;
@@ -27,24 +28,16 @@ const ResetPassword = () => {
           Reset Password
         </h1>
         <form className={`flex flex-col w-1/4`} onSubmit={handlePasswordReset}>
-          <label htmlFor="username">Username</label>
-          <input type="text" className={inputStyle} id="username" required />
-          <button
-            className={`bg-green-400 mt-5 h-10 text-black text-2xl font-bold mb-5 rounded`}
-          >
-            Send Email
-          </button>
+          <InputFormField
+            input={{ required: true }}
+            fieldName="Username"
+            fieldType="text"
+          />
+          <FormButton>Send Email</FormButton>
         </form>
-        <Link className={`hover:text-green-400`} href="/dashboard/register">
-          Need an account?
-        </Link>
+        <TextUrlLink href="/dashboard/register">Need an account?</TextUrlLink>
         <br />
-        <Link
-          className={`hover:text-green-400`}
-          href="/dashboard/resetpassword"
-        >
-          Know your password?
-        </Link>
+        <TextUrlLink href="/dashboard/login">Know your password?</TextUrlLink>
       </div>
       <ToastContainer />
     </div>
