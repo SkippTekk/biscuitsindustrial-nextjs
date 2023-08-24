@@ -46,9 +46,11 @@ export async function GET(req, { params }) {
       await prisma.accounts.update({
 
       })
+      await prisma.$disconnect()
     })
     .catch((a, b) => {
       console.log(a, b);
     });
+  await prisma.$disconnect()
   return new NextResponse('Success! Your account is now linked with your Eve Character!');
 }
