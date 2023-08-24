@@ -1,5 +1,5 @@
 import Image from "next/image";
-import style from "./page.module.css";
+import style from "./styles/home.module.css";
 
 export default function Home() {
   return (
@@ -7,14 +7,16 @@ export default function Home() {
       className={`container h-screen w-screen flex items-center justify-center`}
     >
       <div className={`flex flex-col w-1/2 m-20`}>
-        <h1
-          className={`text-green-500 font-bold text-center ${style.biscuits__text}`}
-        >
-          Biscuits Industrial
-        </h1>
-        <p className={`text-center mb-5 text-2xl`}>
-          Eve Online, Spreadsheets in Space
-        </p>
+        <div className={`mb-20`}>
+          <h1
+            className={`text-green-500 font-bold text-center ${style.biscuits__text}`}
+          >
+            Biscuits Industrial
+          </h1>
+          <p className={`text-center mb-5 text-2xl`}>
+            Eve Online, Spreadsheets in Space
+          </p>
+        </div>
         <h1 className={`text-green-500 font-bold text-4xl mb-4`}>Welcome</h1>
         <p>
           Welcome to my website! It’s currently being developed so please, don’t

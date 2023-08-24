@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useRef } from "react";
-import style from "./page.module.css";
 import Link from "next/link";
 import PasswordChecklist from "react-password-checklist";
 import { ToastContainer } from "react-toastify";
@@ -8,13 +7,15 @@ import {
   successToast,
   errorToast,
 } from "@components/biscuit-toasts/biscuit-toasts";
+import { InputFormField } from "@components/Ui/InputFormField/InputFormField";
+import { FormButton } from "@components/Ui/FormButton/FormButton";
+import { TextUrlLink } from "@components/Ui/TextUrlLink/TextUrlLink";
 
 const Login = () => {
   const username = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const [getPassword, setPassword] = useState<string>("");
   const [getAccountCreated, setAccountCreated] = useState<boolean>(false);
-  const inputStyle = `text-white bg-neutral-900 h-8 border-2 border-green-400/0 border-b-green-400 text-center mt-5 mb-5 focus:outline-none`;
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,25 +62,20 @@ const Login = () => {
         >
           <h1 className={`text-green-400 text-4xl mb-5 font-bold`}>Sign up!</h1>
           <form className={`flex flex-col w-1/4`} onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input
+            <InputFormField
+              input={{
+                length: "4",
+                maxLength: "20",
+                id: "username",
+              }}
+              fieldType="text"
+              fieldName="Username"
               ref={username}
-              type="text"
-              id="username"
-              name="username"
-              className={inputStyle}
-              minLength={4}
-              maxLength={20}
-              required
             />
-            <label htmlFor="Email">Email</label>
-            <input
-              ref={email}
-              type="email"
-              id="email"
-              name="email"
-              className={inputStyle}
-              required
+            <InputFormField
+              input={{ required: true }}
+              fieldType="email"
+              fieldName="Email"
             />
             <label htmlFor="password">Password</label>
             <input
@@ -87,7 +83,7 @@ const Login = () => {
               id="password"
               name="password"
               pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{7,19}"
-              className={inputStyle}
+              className={`text-white bg-neutral-900 h-11 border-2 border-green-400/0 border-b-green-400 text-center mt-5 mb-5 focus:outline-none`}
               onChange={(e) => handlePassword(e.target.value)}
               required
             />
@@ -110,15 +106,9 @@ const Login = () => {
                 maxLength: "Under 32 characters in length",
               }}
             />
-            <button
-              className={`bg-green-400 mt-5 h-10 text-black text-2xl font-bold mb-5 rounded`}
-            >
-              Register
-            </button>
+            <FormButton>Register</FormButton>
           </form>
-          <Link href="/dashboard/login" className={`hover:text-green-400`}>
-            Got an account?
-          </Link>
+          <TextUrlLink href="/dashboard/login">Got an account?</TextUrlLink>
         </div>
       )}
       {getAccountCreated && (
@@ -126,22 +116,13 @@ const Login = () => {
           className={`container h-screen w-screen flex flex-col items-center justify-center`}
         >
           <p className={`font-bold text-green-400 text-5xl`}>
-            Account has been <u>created</u>!
+            Account has been <u className={`text-white`}>created</u>!
           </p>
           <br />
           <br />
           <span className={`text-xl`}>
             Please check your email for a verification link.
           </span>
-          <br />
-          <br />
-          <Link href="/dashboard/login">
-            <button
-              className={`bg-green-400 h-auto p-3 pr-5 pl-5 text-black text-2xl font-bold rounded`}
-            >
-              Login
-            </button>
-          </Link>
         </div>
       )}
       <ToastContainer />

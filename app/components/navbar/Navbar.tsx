@@ -1,19 +1,17 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import style from "./navbar.module.css";
 import image from "public/BiscuityBotIcon.png";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { TextUrlLink } from "@components/Ui/TextUrlLink/TextUrlLink";
 
 const links: Pages[] = [
   {
-    id: 1,
     title: "Home",
     url: "/",
   },
   {
-    id: 2,
     title: "About",
     url: "/about",
   },
@@ -36,49 +34,31 @@ const Navbar = () => {
       </div>
       <div className={`w-90 flex space-x-4`}>
         {links.map((link) => (
-          <Link
-            key={link.id}
-            href={link.url}
-            className={`hover:text-green-400`}
-          >
+          <TextUrlLink key={link.title} href={link.url}>
             {link.title}
-          </Link>
+          </TextUrlLink>
         ))}
         {session.status === "authenticated" ? (
           <>
-            <Link
-              href="/dashboard"
-              title="Your Dashboard"
-              className={`hover:text-green-400`}
-            >
+            <TextUrlLink href="/dashboard" title="Your Dashboard">
               Dashboard
-            </Link>
-            <Link
+            </TextUrlLink>
+            <TextUrlLink
               target="_blank"
               href={`https://login.eveonline.com/v2/oauth/authorize/?response_type=code&redirect_uri=http://localhost:3000/api/auth/eveonline/callback&client_id=${process.env.EVEONLINE_CLIENT_ID}&scope=publicData esi-skills.read_skills.v1 esi-contracts.read_character_contracts.v1&state=${process.env.STATE}`}
               title="Connect your Eve Account"
-              className={`hover:text-green-400`}
             >
               Eve Connect
-            </Link>
-            <a
-              href="#"
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className={`hover:text-green-400`}
-            >
+            </TextUrlLink>
+            <TextUrlLink href="#" signout="true">
               Logout
-            </a>
+            </TextUrlLink>
           </>
         ) : (
           <>
-            <Link
-              key={"login"}
-              href="/dashboard/login"
-              title="Login"
-              className={`hover:text-green-400`}
-            >
+            <TextUrlLink href="/dashboard/login" title="Login">
               Login
-            </Link>
+            </TextUrlLink>
           </>
         )}
       </div>

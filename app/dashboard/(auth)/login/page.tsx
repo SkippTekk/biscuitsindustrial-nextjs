@@ -1,16 +1,16 @@
 "use client";
 import React, { useRef } from "react";
-import style from "./page.module.css";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import { errorToast } from "@components/biscuit-toasts/biscuit-toasts";
 import { useRouter } from "next/navigation";
+import { InputFormField } from "@components/Ui/InputFormField/InputFormField";
+import { FormButton } from "@components/Ui/FormButton/FormButton";
+import { TextUrlLink } from "@components/Ui/TextUrlLink/TextUrlLink";
 
 const Login = () => {
   const userName = useRef<HTMLInputElement>(null);
   const userPass = useRef<HTMLInputElement>(null);
-  const inputStyle = `text-white bg-neutral-900 h-8 border-2 border-green-400/0 border-b-green-400 text-center mt-5 mb-5 focus:outline-none`;
   const { push } = useRouter();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
@@ -41,38 +41,23 @@ const Login = () => {
       >
         <h1 className={`text-green-400 text-4xl mb-5 font-bold`}>Sign in!</h1>
         <form className={`flex flex-col w-1/4`} onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input
+          <InputFormField
+            fieldName="Username"
+            fieldType="text"
             ref={userName}
-            type="text"
-            className={inputStyle}
-            id="username"
-            required
           />
-          <label htmlFor="password">Password</label>
-          <input
+          <InputFormField
+            fieldName="Password"
+            fieldType="password"
             ref={userPass}
-            type="password"
-            className={inputStyle}
-            id="password"
-            required
           />
-          <button
-            className={`bg-green-400 mt-5 h-10 text-black text-2xl font-bold mb-5 rounded`}
-          >
-            Login
-          </button>
+          <FormButton>Login</FormButton>
         </form>
-        <Link className={`hover:text-green-400`} href="/dashboard/register">
-          Need an account?
-        </Link>
+        <TextUrlLink href="/dashboard/register">Need an account?</TextUrlLink>
         <br />
-        <Link
-          className={`hover:text-green-400`}
-          href="/dashboard/resetpassword"
-        >
+        <TextUrlLink href="/dashboard/resetpassword">
           Forgot your password?
-        </Link>
+        </TextUrlLink>
       </div>
       <ToastContainer />
     </>

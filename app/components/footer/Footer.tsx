@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./footer.module.css";
 import Image from "next/image";
+import { DiscordIcon } from "@components/Ui/svg/DiscordIcon";
 
 const Footer = () => {
   return (
@@ -18,12 +19,7 @@ const Footer = () => {
           alt="Biscuits Industrial"
         />
         <a href="https://discord.gg/9eZvHRrh" title="Join our Discord!">
-          <Image
-            src="/discord-mark-blue.svg"
-            width={20}
-            height={20}
-            alt="Discord Link"
-          />
+          <DiscordIcon />
         </a>
       </div>
     </div>
