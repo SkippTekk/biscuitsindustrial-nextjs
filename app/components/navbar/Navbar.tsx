@@ -16,7 +16,6 @@ const links: Pages[] = [
     url: "/about",
   },
   {
-    id: 3,
     title: "Ships",
     url: "/ships",
   },
