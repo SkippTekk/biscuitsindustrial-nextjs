@@ -36,15 +36,6 @@ yarn-error.log*
 next-env.d.ts
 
 #prisma
-/prisma/biscuits/runtime
-/prisma/biscuits/index-browser.js
-/prisma/biscuits/index.d.ts
-/prisma/biscuits/index.js
-/prisma/biscuits/package.json
-/prisma/biscuits/query_engine-windows.dll.node
-/prisma/evedump/runtime
-/prisma/evedump/index-browser.js
-/prisma/evedump/index.d.ts
-/prisma/evedump/index.js
-/prisma/evedump/package.json
-/prisma/evedump/query_engine-windows.dll.node
+prisma/
+!prisma/biscuits/schema.prisma
+!prisma/evedump/schema.prisma
