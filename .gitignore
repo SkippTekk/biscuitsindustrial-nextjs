@@ -36,6 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 #prisma
-prisma/
+/prisma
 !prisma/biscuits/schema.prisma
+!prisma/biscuits/sql/*
 !prisma/evedump/schema.prisma
