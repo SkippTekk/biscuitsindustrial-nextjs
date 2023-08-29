@@ -40,3 +40,5 @@ next-env.d.ts
 !prisma/biscuits/schema.prisma
 !prisma/biscuits/sql/*
 !prisma/evedump/schema.prisma
+/prisma/biscuits/libquery_engine-debian-openssl-3.0.x.so.node
+/prisma/evedump/libquery_engine-debian-openssl-3.0.x.so.node
