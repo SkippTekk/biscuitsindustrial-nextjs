@@ -35,3 +35,20 @@ model Accounts {
 
   @@index([id, userID, characterID])
 }
+
+model EveShips {
+  typeID          Int @id
+  groupID         Int
+  typeName        String
+  mass            BigInt
+  volume          Int
+  capacity        Int
+  raceID          Int?
+  basePrice       BigInt
+  marketGroupID   Int
+  categoryID      Int
+  groupName       String
+  parentGroupID   Int
+  marketGroupName String
+  faction         String?
+}
