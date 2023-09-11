@@ -52,3 +52,10 @@ model EveShips {
   marketGroupName String
   faction         String?
 }
+
+model EveFactions {
+  factionID           Int @id
+  factionName         String
+  iconUrl             String
+  shortName           String
+}

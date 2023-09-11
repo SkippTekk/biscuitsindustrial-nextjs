@@ -1,4 +1,6 @@
-INSERT INTO biscuits.EveShips (typeID, groupID, typeName, mass, volume, capacity, raceID, basePrice, marketGroupID, categoryID, groupName, parentGroupID, marketGroupName, faction)
+use biscuits;
+
+INSERT INTO `EveShips` (typeID, groupID, typeName, mass, volume, capacity, raceID, basePrice, marketGroupID, categoryID, groupName, parentGroupID, marketGroupName, faction)
 VALUES
 (24692, 27, 'Abaddon', 103200000, 470000, 740, 4, 153900000, 79, 6, 'Battleship', 7, 'Amarr', 'Amarr'),
 (22448, 540, 'Absolution', 12300000, 234000, 375, 4, 255200000, 825, 6, 'Command Ship', 822, 'Amarr', 'Amarr'),
