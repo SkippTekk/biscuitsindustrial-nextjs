@@ -25,7 +25,9 @@
       "@components/*": ["app/components/*"],
       "@prisma/biscuits/*": ["prisma/biscuits/*"],
       "@prisma/evedump/*": ["prisma/evedump/*"],
-      "@mailing/*": ["app/mail/*"]
+      "@mailing/*": ["app/mail/*"],
+      "@utils/*": ["app/utils/*"],
+      "@shipBuildContext": ["app/ship/[ship]/context.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
